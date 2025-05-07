@@ -1,0 +1,92 @@
+{% extends 'pages/dashboard.html' %}
+{% load static %}
+
+{% block title %}Phân quyền{% endblock %}
+
+{% block add_css %}
+    <link rel="stylesheet" href="{% static 'css/author.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h1>Phân quyền</h1>
+    
+    <div class="author-container">
+        <!-- Thanh tìm kiếm -->
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm theo tên hoặc mã...">
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+
+        <!-- Bảng danh sách tài khoản -->
+        <div class="users-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã</th>
+                        <th>Họ và tên</th>
+                        <th>Tên người dùng</th>
+                        <!-- Xóa cột Email -->
+                        <th>Mật khẩu</th>
+                        <th>Role hiện tại</th>
+                        {% if is_admin %}
+                        <th>Thao tác</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for nv in nv %}
+                    <tr data-id="{{ nv.matk.matk }}">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ nv.matk.matk }}</td>
+                        <td>{{ nv.hoten_nv }}</td>
+                        <td>{{ nv.matk.tendangnhap }}</td>
+                        <td>{{ nv.matk.matkhau }}</td>
+                        <td>
+                            <span class="role-badge {% if nv.matk.vaitro == 'Người dùng' %}user{% elif nv.matk.vaitro == 'Admin' %}admin{% elif nv.matk.vaitro == 'Unknown' %}unknown{% else %}default{% endif %}">{{ nv.matk.vaitro }}</span>
+                        </td>
+                        {% if is_admin %}
+                        <td>
+                            <select class="role-select" onchange="changeRole(this, '')">
+                                <option value="Người dùng" {% if nv.matk.vaitro == 'Người dùng' %}selected{% endif %}>Người dùng</option>
+                                <option value="Admin" {% if nv.matk.vaitro == 'Admin' %}selected{% endif %}>Admin</option>
+                                <option value="Unknown" {% if nv.matk.vaitro == 'Unknown' %}selected{% endif %}>Unknown</option>
+                            </select>
+                            <button class="save-btn" onclick="saveRole('{{ nv.matk.matk }}')">Lưu</button>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                    {% for sv in sv %}
+                    <tr data-id="{{ sv.matk.matk }}">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ sv.matk.matk }}</td>
+                        <td>{{ sv.hoten_sv }}</td>
+                        <td>{{ sv.matk.tendangnhap }}</td>
+                        <td>{{ sv.matk.matkhau }}</td>
+                        <td>
+                            <span class="role-badge {% if sv.matk.vaitro == 'Người dùng' %}user{% elif sv.matk.vaitro == 'Admin' %}admin{% elif sv.matk.vaitro == 'Unknown' %}unknown{% else %}default{% endif %}">{{ sv.matk.vaitro }}</span>
+                        </td>
+                        {% if is_admin %}
+                        <td>
+                            <select class="role-select" onchange="changeRole(this, '')">
+                                <option value="Người dùng" {% if sv.matk.vaitro == 'Người dùng' %}selected{% endif %}>Người dùng</option>
+                                <option value="Admin" {% if sv.matk.vaitro == 'Admin' %}selected{% endif %}>Admin</option>
+                                <option value="Unknown" {% if sv.matk.vaitro == 'Unknown' %}selected{% endif %}>Unknown</option>
+                            </select>
+                            <button class="save-btn" onclick="saveRole('{{ sv.matk.matk }}')">Lưu</button>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block add_js %}
+    <script src="{% static 'js/author.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'pages/dashboard.html' %}
+{% load static %}
+
+{% block title %}Đăng ký ghi danh{% endblock %}
+
+{% block add_css %}
+    <title>Đăng ký ghi danh</title>
+    <link rel="stylesheet" href="{% static 'css/ghi_danh.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+    <div class="ghidanh-box">
+        <h2>Đăng ký ghi danh</h2>
+        <table class="table-hocphan">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Loại</th>
+                    <th>Mã học phần</th>
+                    <th>Tên học phần</th>
+                    <th>STC</th>
+                    {% if is_admin or is_sinhvien %}
+                    <th>Thao tác</th> <!-- Cột không tên -->
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for hp in hptc %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ hp.loai }}</td>
+                    <td>{{ hp.mahp }}</td>
+                    <td>{{ hp.tenhp }}</td>
+                    <td>{{ hp.sotc }}</td>
+                    {% if is_admin or is_sinhvien %}
+                    <td><button class="btn-action" id="btn-chon">Chọn</button></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>    
+    
+        <h2>Kết quả đăng ký</h2>
+        <table class="table-hocphan">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Loại</th>
+                    <th>Mã học phần</th>
+                    <th>Tên học phần</th>
+                    <th>STC</th>
+                    {% if is_admin or is_sinhvien %}
+                    <th>Thao tác</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for item in kqdk %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ item.hp.loai }}</td>
+                        <td>{{ item.ttdk.mamh }}</td>
+                        <td>{{ item.hp.tenhp }}</td>
+                        <td>{{ item.hp.sotc }}</td>
+                        {% if is_admin or is_sinhvien %}
+                        <td><button class="btn-action btn-huy" data-mahp="{{ item.ttdk.mamh }}">Hủy</button></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>   
+        <div class="confirm-box">
+            <button class="btn-confirm" onclick="confirmRegistration()">Xác nhận</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block add_js %}
+    <script src="{% static 'js/ghidanh.js' %}"></script>
+{% endblock %}

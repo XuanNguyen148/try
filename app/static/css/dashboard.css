@@ -1,0 +1,217 @@
+:root {
+    --sidebar-bg: #800000;
+    --main-bg: white;
+    --card-bg: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: white;
+    color: var(--text-primary);
+}
+
+.header-bar {
+    display: flex;
+    justify-content: center; /* Căn giữa nội dung trong header */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    background-color: #800000; /* Màu đỏ rượu */
+    color: white;
+    padding: 15px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative; /* Để định vị avatar2 */
+}
+
+.header-bar h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    flex: 1; /* Để chữ chiếm không gian giữa */
+    text-align: center; /* Căn giữa chữ */
+}
+
+.avatar2 {
+    cursor: pointer;
+    position: relative;
+    font-size: 24px;
+    color: white;
+    position: absolute; /* Định vị avatar2 */
+    right: 20px; /* Đẩy avatar2 sang phải */
+}
+
+/* Sidebar */
+.sidebar {
+    width: 280px;
+    background: #800000!important; /* Màu đỏ rượu */
+    color: white;
+    padding: 24px 0;
+    position: fixed;
+    top: 0px;  /* đúng bằng chiều cao header-bar */
+    height: 100%;
+}
+
+.sidebar-header {
+    padding: 0 24px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column; /* Đặt các phần tử theo cột */
+    align-items: center; /* Căn giữa theo chiều ngang */
+    gap: 15px;
+}
+
+.university-logo {
+    width: 130px !important; 
+    height: 130px !important;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-card {
+    background-color: orange;
+    border-radius: 8px;
+    padding: 16px;
+    color: black;
+    display: flex;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.avatar {
+    font-size: 48px;
+    margin-right: 16px;
+    color: white;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.info strong {
+    font-size: 16px;
+}
+
+.info span {
+    font-size: 14px;
+}
+
+.info p {
+    margin-top: 4px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-nav a {
+    color: #e2e8f0;
+    text-decoration: none;
+    padding: 15px 24px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 4px 8px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.sidebar-nav a i {
+    font-size: 1.2rem;
+}
+
+.logout-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #f4a533; /* Màu cam */
+    color: black; /* Chữ đen */
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    width: 50%; /* Đặt chiều rộng nút */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #e0951e; /* Màu cam đậm hơn khi hover */
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1000;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 60px;
+    background-color: #fff;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: #f5f5f5;
+}
+
+.dropdown-content a i {
+    margin-right: 10px;
+    width: 20px;
+}
+
+.dropdown-content a.logout {
+    color: #dc3545;
+    border-top: 1px solid #eee;
+}
+
+/* Nút "Đổi mật khẩu" */
+.btn-change-password {
+    background-color: #800000; /* Màu đỏ rượu */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-change-password:hover {
+    background-color: #660000; /* Màu đỏ rượu đậm hơn khi hover */
+}

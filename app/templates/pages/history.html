@@ -1,0 +1,70 @@
+{% extends 'pages/dashboard.html' %}
+{% load static %}
+
+{% block title %}Lịch sử đăng ký học phần{% endblock %}
+
+{% block add_css %}
+    <link rel="stylesheet" href="{% static 'css/history.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h1>Lịch sử đăng ký học phần</h1>
+
+    <!-- Box chứa thanh lọc và bảng -->
+    <div class="search-and-table-box">
+        <!-- Thanh lọc -->
+        <div class="search-bar">
+            <select id="semesterSelect" class="search-select">
+                <option value="">Tất cả</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
+            <input type="text" id="keywordInput" class="search-input" placeholder="Nhập từ khóa (Tên/Mã HP)...">
+            <button class="search-btn" onclick="filterData()">Tìm kiếm</button>
+        </div>
+
+        <!-- Bảng lịch sử -->
+        <table class="hocphan-table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                    <th>Học kỳ</th>
+                    <th>Tên HP</th>
+                    <th>Mã LHP</th>
+                    <th>Số TC</th>
+                    <th>Thao tác bởi</th>
+                    <th>Thời gian</th>
+                </tr>
+            </thead>
+            <tbody id="historyTableBody">
+                {% for item in kqdk %}
+                <tr style="background-color: #ff6600; color: white;">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.ls.hoatdong }}</td>
+                    <td>{{ item.ls.trangthai }}</td>
+                    <td>{{ item.lhp.mahp.hocky }}</td>
+                    <td>{{ item.lhp.mahp.tenhp }}</td>
+                    <td>{{ item.lhp.malhp }}</td>
+                    <td>{{ item.lhp.mahp.sotc }}</td>
+                    <td>{{ item.ls.masv.masv }}</td>
+                    <td>{{ item.ls.thoigian }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block add_js %}
+    <script src="{% static 'js/history.js' %}"></script>
+{% endblock %}

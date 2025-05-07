@@ -1,0 +1,162 @@
+{% extends 'pages/dashboard.html' %}
+{% load static %}
+
+{% block title %}Đăng ký học phần{% endblock %}
+
+{% block add_css %}
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+<div class="content">
+    <h1>Đăng ký học phần</h1>
+
+    <!-- Bảng 1 -->
+    <div class="table-container">
+        <h2>Tiến độ chuẩn (4.0 năm)</h2>
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Mã học phần</th>
+                    <th>Tên học phần</th>
+                    <th>STC</th>
+                    {% if is_admin or is_sinhvien %}
+                    <th>Thao tác</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Các môn bắt buộc -->
+                <tr class="section-header">
+                    <td colspan="5">Các môn bắt buộc</td>
+                </tr>
+                {% for hp in hpbb %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ hp.mahp }}</td>
+                    <td>{{ hp.tenhp }}</td>
+                    <td>{{ hp.sotc }}</td>
+                    {% if is_admin or is_sinhvien %}
+                    <td><button class="register-btn" data-ma-hoc-phan="{{ hp.mahp }}">Đăng ký</button></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                <tr>
+
+                <!-- Các môn tự chọn -->
+                <tr class="section-header">
+                    <td colspan="5">Các môn tự chọn</td>
+                </tr>
+                {% for hp in hptc %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ hp.mahp }}</td>
+                    <td>{{ hp.tenhp }}</td>
+                    <td>{{ hp.sotc }}</td>
+                    {% if is_admin or is_sinhvien %}
+                    <td><button class="register-btn" data-ma-hoc-phan="{{ hp.mahp }}">Đăng ký</button></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+
+                <!-- Các môn cần học lại -->
+                <tr class="section-header">
+                    <td colspan="5">Các môn cần học lại</td>
+                </tr>
+                {% for hp in hphl %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ hp.mahp }}</td>
+                    <td>{{ hp.tenhp }}</td>
+                    <td>{{ hp.sotc }}</td>
+                    {% if is_admin or is_sinhvien %}
+                    <td><button class="register-btn" data-ma-hoc-phan="{{ hp.mahp }}">Đăng ký</button></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bảng 2 -->
+    <div class="table-container">
+        <h2>Kết quả đăng ký</h2>
+        <table class="custom-table" id="result-table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Mã lớp học phần</th>
+                    <th>Tên học phần</th>
+                    <th>STC</th>
+                    <th>Giảng viên</th>
+                    <th>Phòng học</th>
+                    {% if is_admin or is_sinhvien %}
+                    <th>Thao tác</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in kqdk %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.ttdk.mamh }}</td>
+                    <td>{{ item.lhp.mahp.tenhp }}</td>
+                    <td>{{ item.lhp.mahp.sotc }}</td>
+                    <td>{{ item.lhp.giangvien }}</td>
+                    <td>{{ item.lhp.phonghoc }}</td>
+                    {% if is_admin or is_sinhvien %}
+                    <td>
+                        <button class="cancel-btn btn-huy" data-mahp="{{ item.ttdk.mamh }}">Hủy</button>
+                        <button class="register-btn" data-ma-hoc-phan="{{ item.lhp.mahp.mahp }}">Chuyển lớp</button>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% if is_admin or is_sinhvien %}
+<!-- Form chọn lớp học phần -->
+<div class="select-class-container" id="selectClassContainer" style="display: none;">
+    <div class="select-class-content">
+        <h2>Chọn lớp học phần</h2>
+        <table class="select-class-table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên lớp HP</th>
+                    <th>Giảng viên</th>
+                    <th>Số SV tối đa</th>
+                    <th>Lịch học</th>
+                    <th>Phòng học</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lhp in lhp %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ lhp.malhp }}</td>
+                    <td>{{ lhp.giangvien }}</td>
+                    <td>{{ lhp.sosvtoida }}</td>
+                    <td>{{ lhp.lichhoc }}</td>
+                    <td>{{ lhp.phonghoc }}</td>
+                    <td><button class="select-btn">Đăng ký</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="form-actions">
+            <button class="cancel-btn" onclick="hideSelectClassForm()">Đóng</button>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block add_js %}
+    <script src="{% static 'js/register.js' %}"></script>
+{% endblock %}
